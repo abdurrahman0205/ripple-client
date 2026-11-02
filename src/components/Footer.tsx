@@ -91,8 +91,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-background px-4 py-8 md:px-8 md:py-12">
-      <div className="mx-auto max-w-7xl rounded-3xl border border-border bg-card px-6 py-10 shadow-sm sm:px-10 md:px-14 md:py-14">
+    <footer className="w-full bg-background px-4 md:px-0 pt-12">
+      <div className="mx-auto max-w-7xl rounded-t-3xl border border-border bg-card px-6 py-10 shadow-sm sm:px-10 md:px-14 md:py-14">
         {/* Top — brand + tagline */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2.5">
@@ -159,16 +159,7 @@ const Footer = () => {
 
           {/* Language select + social icons */}
           <div className="flex flex-col items-start gap-6 lg:items-end">
-            <Select defaultValue="pt">
-              <SelectTrigger className="h-10 gap-2 rounded-full px-4">
-                <Globe className="size-4 text-muted-foreground" />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="pt">Português</SelectItem>
-                <SelectItem value="en">English</SelectItem>
-              </SelectContent>
-            </Select>
+            <p>Follow us</p>
 
             <div className="flex items-center gap-3">
               {socials.map((social) => (
@@ -190,27 +181,22 @@ const Footer = () => {
         {/* Bottom — copyright + legal links */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
-            © 2025 Azimute. Todos os direitos reservados.
+            © 2026 Ripples 
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
             <Link
               href="#"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Termos e Condições
+              Terms
             </Link>
             <Link
               href="#"
               className="text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Política de Privacidade
+              Policy and Privacy
             </Link>
-            <Link
-              href="#"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Cookies
-            </Link>
+          
           </div>
         </div>
       </div>
