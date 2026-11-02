@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <!-- Deep Forest Green -->
+    <linearGradient id="primaryGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d6a4f" />
+      <stop offset="100%" stop-color="#1b4d3e" />
+    </linearGradient>
+
+    <!-- Vibrant Leaf Green -->
+    <linearGradient id="leafGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#52b788" />
+      <stop offset="50%" stop-color="#40916c" />
+      <stop offset="100%" stop-color="#2d6a4f" />
+    </linearGradient>
+
+    <!-- Soft Accent Green -->
+    <linearGradient id="accentGreen" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#74c69d" />
+      <stop offset="100%" stop-color="#40916c" />
+    </linearGradient>
+
+    <!-- Subtle Glow Shadow for Dark Background -->
+    <filter id="greenGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#52b788" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Black Canvas with Rounded Corners -->
+  <rect width="600" height="600" rx="40" ry="40" fill="#0c100d" />
+
+  <!-- Scaled Up Logo Group -->
+  <g filter="url(#greenGlow)" transform="translate(30, 30) scale(1.15)">
+    <!-- 1. MAIN ELEGANT STEM (Cursive R Left Stroke) -->
+    <path d="M 170 120 
+             C 190 120, 200 140, 185 190
+             L 145 330
+             C 130 380, 120 410, 140 420
+             C 160 430, 190 400, 215 370" fill="none" stroke="url(#primaryGreen)" stroke-width="24" stroke-linecap="round" />
+
+    <!-- Left Flourish Loop -->
+    <circle cx="170" cy="120" r="12" fill="url(#primaryGreen)" />
+
+    <!-- 2. R TOP LOOP & RIGHT LEG -->
+    <path d="M 160 210
+             C 210 130, 350 100, 360 190
+             C 365 240, 310 275, 240 280
+             C 300 290, 350 360, 400 415
+             C 415 430, 435 435, 450 425" fill="none" stroke="url(#primaryGreen)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- 3. CARING HAND / SWOOSH EMBRACE (Right Side) -->
+    <path d="M 300 290
+             C 360 300, 420 310, 440 260
+             C 455 220, 410 200, 380 220
+             C 360 235, 365 265, 390 265
+             C 410 265, 420 245, 410 235" fill="none" stroke="url(#leafGreen)" stroke-width="16" stroke-linecap="round" />
+
+    <!-- 4. LEAF AT TOP RIGHT (Growth Element) -->
+    <g transform="translate(370, 90) rotate(25)">
+      <path d="M 0 55 
+               C -22 28, -17 -11, 28 -28 
+               C 38 17, 22 44, 0 55 Z" fill="url(#accentGreen)" />
+      <path d="M 0 55 C 5 22, 28 -28, 28 -28" stroke="#0c100d" stroke-width="3" fill="none" stroke-linecap="round" />
+    </g>
+
+    <!-- 5. SMALLER SUPPORTING LEAF -->
+    <g transform="translate(420, 130) rotate(65)">
+      <path d="M 0 40 
+               C -17 17, -11 -6, 20 -20 
+               C 28 11, 17 32, 0 40 Z" fill="url(#leafGreen)" />
+      <path d="M 0 40 C 3 17, 20 -20, 20 -20" stroke="#0c100d" stroke-width="2" fill="none" stroke-linecap="round" />
+    </g>
+
+    <!-- 6. ACCENT LEAF ON BOTTOM LEFT STEM -->
+    <g transform="translate(215, 370) rotate(-40)">
+      <path d="M 0 40 
+               C -17 17, -11 -6, 20 -20 
+               C 28 11, 17 32, 0 40 Z" fill="url(#accentGreen)" />
+      <path d="M 0 40 C 3 17, 20 -20, 20 -20" stroke="#0c100d" stroke-width="2" fill="none" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>
