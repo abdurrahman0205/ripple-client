@@ -13,7 +13,7 @@ import { Field, FieldLabel } from './ui/field';
 
 const getEvent = async () => {
   const res = await fetch(
-    "http://localhost:5100/api/event-type"
+    `${process.env.EVENT_TYPES_DATA_URL}/api/event-type`
   );
 
   if (!res.ok) {

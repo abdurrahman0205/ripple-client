@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar/Navbar";
 import { ThemeProvider } from "@/components/provider/theme-provider";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html 
+    <html
       lang="en" suppressHydrationWarning
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
     >
@@ -35,11 +36,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           enableSystem
           disableTransitionOnChange
         >
-        <Navbar />
-        <main>{children}</main>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
 
-
-          </ThemeProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
