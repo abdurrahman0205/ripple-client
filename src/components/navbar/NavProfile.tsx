@@ -16,20 +16,25 @@ const NavProfile = () => {
 
   return (
     <div>
-     
+
       {session?.user ? <>
         <div className='flex items-center gap-2'>
-          
+
           <Button
             onClick={handleSignOut}
             variant='destructive'>
             Sign Out
           </Button>
         </div>
-       </> : <> <Button className='h-9 gap-2 rounded-xl bg-emerald-500 px-4 text-white hover:bg-emerald-600' render={<Link href='/sign-in' />}>
-        <LogIn className='size-4' />
-        Sign In
-      </Button> </>}
+      </> : <>
+        <Link href='/sign-in'>
+
+          <Button className='h-9 gap-2 rounded-xl bg-emerald-500 px-4 text-white hover:bg-emerald-600'>
+              <LogIn className='size-4' />
+              Sign in
+          </Button>
+        </Link>
+      </>}
 
     </div>
   );

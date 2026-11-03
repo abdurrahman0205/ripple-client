@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { useSession } from "@/lib/auth-client"
 import { Plus } from "lucide-react"
 import { Suspense } from "react"
 
@@ -16,24 +17,34 @@ import { Suspense } from "react"
 
 export default function UpComingEvents() {
   
+  const {data:session} = useSession()
 
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries())
+    const eventData = Object.fromEntries(formData.entries())
 
-    console.log(data, 'success');
+    const data = {
+      ...eventData
+    }
 
-    // const res = fetch(`${process.env.BASE_API_URL}/api/post`, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(data),
-    // })
+    console.log(data, 'before submit');
 
+
+
+    // /api/create-events ${process.env.BASE_API_URL}
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/create-events`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    })
+    
+
+    console.log(await res.json(), 'after submit');
   }
 
 
@@ -103,8 +114,8 @@ export default function UpComingEvents() {
                 </Field>
 
                 <Field>
-                  <FieldLabel htmlFor="form-email">Organizer Email</FieldLabel>
-                  <Input id="form-email" name='organizerEmail' type="email" placeholder="john@example.com" />
+                  <FieldLabel htmlFor="form-email">Organizer Eamil</FieldLabel>
+                  <Input id="form-email" name='organizerEmail' type="email" defaultValue={session?.user?.email || 'example@gmail.com'} disabled  />
                   {/* <FieldDescription>
                     We&apos;ll never share your email with anyone.
                   </FieldDescription> */}
