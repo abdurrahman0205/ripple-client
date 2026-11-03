@@ -31,7 +31,7 @@ export default function UpComingEvents() {
 
     console.log(data, 'success');
 
-    const res = fetch('http://localhost:5100/api/post', {
+    const res = fetch(`${process.env.EVENT_TYPES_DATA_URL}/api/post`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
