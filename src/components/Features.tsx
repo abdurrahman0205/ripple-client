@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+import SelectEventType from './SelectEventType';
 
-const Features = () => {
-  return (
-    <div>
-      <div className='min-h-50 flex justify-center items-center'>
-        Features
-      </div>
+const Features = async () => {
+  
+  return ( <>
+    <div className='flex justify-center items-center my-20 min-h-50'>
+      <Suspense fallback={<p>Loading</p>}>
+
+      <SelectEventType />
+      </Suspense>
     </div>
+  </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Tag } from 'lucide-react';
 
-const UpComingEvents = () => {
+const LimitedUpComingEvents = () => {
 
   const dummyData = {
 
@@ -44,4 +44,4 @@ const UpComingEvents = () => {
   );
 };
 
-export default UpComingEvents;
+export default LimitedUpComingEvents;

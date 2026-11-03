@@ -1,4 +1,5 @@
 'use client'
+import SelectEventType from "@/components/SelectEventType"
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -7,24 +8,19 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Plus } from "lucide-react"
+import { Suspense } from "react"
+
+
+
+// const eventTypePromise = async ():Promise<{_id: string, name: string, isCustom:boolean}[]> => {
+//   const res = await fetch('http://localhost:5100/api/event-type')
+//   return await res.json()
+//  }
 
 export default function UpComingEvents() {
-  const eventType = [
-    { label: "United States", value: "us" },
-    { label: "United Kingdom", value: "uk" },
-    { label: "Canada", value: "ca" },
-  ]
-
+  
 
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,23 +68,13 @@ export default function UpComingEvents() {
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
 
-                  <Field>
-                    <FieldLabel htmlFor="form-country">Event Type</FieldLabel>
-                    <Select items={eventType} defaultValue="us" name='eventType'>
-                      <SelectTrigger id="form-country">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {eventType.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.label}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </Field>
+                  {/* <Field>
+                    <FieldLabel htmlFor="form-country">Event Type</FieldLabel> */}
+                  <Suspense fallback={<h1>Loading...</h1>}>
+
+                  <SelectEventType  />
+                  </Suspense>
+                  {/* </Field> */}
 
                   <Field>
                     <FieldLabel htmlFor="form-phone">Date</FieldLabel>

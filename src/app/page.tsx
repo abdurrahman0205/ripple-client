@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import NewsLetter from "@/components/newsletter";
 import Gallery from "@/components/Gallery";
 import Image from "next/image";
-import UpComingEvents from "@/components/UpComingEvents";
+import LimitedUpComingEvents from "@/components/LimitedUpComingEvents";
 import Features from "@/components/Features";
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
     <main>
       <Banner />
       <Features />
-      <UpComingEvents />
+      <LimitedUpComingEvents />
       <Gallery />
       <NewsLetter />
       <Footer />
