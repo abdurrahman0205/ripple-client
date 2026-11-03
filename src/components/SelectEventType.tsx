@@ -11,18 +11,34 @@ import {
 import { Field, FieldLabel } from './ui/field';
 
 
+// const getEvent = async () => {
+//   const res = await fetch(
+//     `${process.env.BASE_API_URL as string}/api/event-type`
+//   );
+
+//   // const res = await fetch(
+//   //   `http://localhost:5100/api/event-type`
+//   // );
+
+//   if (!res.ok) {
+//     throw new Error(
+//       `Failed to fetch event types: ${res.status}`
+//     );
+//   }
 const getEvent = async () => {
-  const res = await fetch(
-    `${process.env.EVENT_TYPES_DATA_URL}/api/event-type`
-  );
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL as string}/api/event-type`);
 
-  if (!res.ok) {
-    throw new Error(
-      `Failed to fetch event types: ${res.status}`
-    );
+    if (!res.ok) {
+      console.warn(`Failed to fetch event types: ${res.status}. Using fallback layout.`);
+      return [];
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error("Network error fetching event types:", error);
+    return [];
   }
-
-  return await res.json();
 };
 
 const eventTypesPromise = getEvent();

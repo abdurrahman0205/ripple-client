@@ -14,11 +14,6 @@ import { Suspense } from "react"
 
 
 
-// const eventTypePromise = async ():Promise<{_id: string, name: string, isCustom:boolean}[]> => {
-//   const res = await fetch('http://localhost:5100/api/event-type')
-//   return await res.json()
-//  }
-
 export default function UpComingEvents() {
   
 
