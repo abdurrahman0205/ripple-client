@@ -3,6 +3,7 @@ import { Button } from '../ui/button';
 import { CalendarDays, HeartHandshake, LogIn, Moon } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
+import NavProfile from './NavProfile';
 
 // Navbar layout setup by AI: three zones matching the design —
 // brand (left) · "Upcoming Events" link (center) · theme toggle + login (right).
@@ -61,10 +62,7 @@ const Navbar = () => {
         {/* Right — actions: theme toggle + login */}
         <div className='flex flex-1 items-center justify-end gap-3'>
           <ThemeToggle />
-          <Button className='h-9 gap-2 rounded-xl bg-emerald-500 px-4 text-white hover:bg-emerald-600'>
-            <LogIn className='size-4' />
-            Sign In
-          </Button>
+          <NavProfile />
         </div>
 
       </div>
