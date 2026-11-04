@@ -1,47 +1,40 @@
-import React from 'react';
-import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import { Tag } from 'lucide-react';
+import { use } from "react";
+import EventCard from "./card/EventCard";
+import { EventData } from "@/lib/type";
 
-const LimitedUpComingEvents = () => {
 
-  const dummyData = {
+const getEvents = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL as string}/api/events/featured`);
 
+    if (!res.ok) {
+      console.warn(`Failed to fetch data.
+      Status: ${res.status}`);
+      return [];
+    }
+    return await res.json();
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
   }
+};
 
+
+const LimitedUpComingEvents = async () => {
+  const events = await getEvents();
+  // console.log(data);
+  // console.log(eventsPromise);
   return (
-    <div className='min-h-50 flex justify-center items-center'>
-      {/* Card Design */}
-
-      <Card className="relative mx-auto w-full max-w-sm pt-0">
-        <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-        <img
-          src="https://plus.unsplash.com/premium_photo-1683140538884-07fb31428ca6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D"
-          alt="Event cover"
-          className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale dark:brightness-40"
-        />
-        <CardHeader>
-          <CardAction>
-            <Badge variant="secondary"><Tag />Featured</Badge>
-          </CardAction>
-          <CardTitle>Design systems meetup</CardTitle>
-          <CardDescription>
-            A practical talk on component APIs, accessibility, and shipping
-            faster.
-            A practical talk on component APIs, accessibility, and shipping
-            faster.
-            A practical talk on component APIs, accessibility, and shipping
-            faster.
-          </CardDescription>
-        </CardHeader>
-        <CardFooter>
-          <Button className="w-full">View Event</Button>
-        </CardFooter>
-      </Card>
-
-    </div>
+    <section className="mx-auto max-w-6xl px-4 py-10">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {events.map((event: EventData) => (
+          <EventCard key={event._id} event={event} />
+        ))}
+      </div>
+    </section>
+   
   );
 };
 
 export default LimitedUpComingEvents;
+

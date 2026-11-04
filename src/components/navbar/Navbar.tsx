@@ -13,7 +13,7 @@ const Navbar = () => {
 
   const nav = [
     {menu: 'Home', link: '/'},
-    {menu: 'Upcoming Events', link: '#'},
+    {menu: 'Upcoming Events', link: '/events'},
     // {menu: 'Navbar', link: '#'},
   ]
 

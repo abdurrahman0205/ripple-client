@@ -25,23 +25,24 @@ import { Field, FieldLabel } from './ui/field';
 //       `Failed to fetch event types: ${res.status}`
 //     );
 //   }
-const getEvent = async () => {
+
+const getEventType = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL as string}/api/event-type`);
 
     if (!res.ok) {
-      console.warn(`Failed to fetch event types: ${res.status}. Using fallback layout.`);
+      console.warn(`Failed to fetch event types.
+      Status: ${res.status}`);
       return [];
     }
-
     return await res.json();
   } catch (error) {
-    console.error("Network error fetching event types:", error);
+    console.error("Error:", error);
     return [];
   }
 };
 
-const eventTypesPromise = getEvent();
+const eventTypesPromise = getEventType();
 
 const SelectEventType = () => {
 
@@ -65,9 +66,7 @@ const SelectEventType = () => {
   // console.log(eventTypes);
 
   return (<>
-    <Field>
-      <FieldLabel htmlFor="form-country">Event Type</FieldLabel>
-      <Select >
+   
         <SelectTrigger >
           <SelectValue placeholder="Select a type" />
         </SelectTrigger>
@@ -81,9 +80,7 @@ const SelectEventType = () => {
             ))}
           </SelectGroup>
         </SelectContent>
-      </Select>
 
-    </Field>
   </>
   );
 };

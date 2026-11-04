@@ -8,16 +8,19 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Select } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { useSession } from "@/lib/auth-client"
 import { Plus } from "lucide-react"
-import { Suspense } from "react"
+import { redirect } from "next/navigation"
+import { Suspense, useState } from "react"
 
 
 
 export default function UpComingEvents() {
   
-  const {data:session} = useSession()
+  const { data: session } = useSession()
+  const [eventType, setEventType]= useState()
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,8 +46,15 @@ export default function UpComingEvents() {
       body: JSON.stringify(data),
     })
     
+    const submitted = await res.json();
 
-    console.log(await res.json(), 'after submit');
+    if (submitted?.acknowledged) { 
+      alert('Successfully added to')
+    } else {
+      alert('failed!!')
+    }
+
+    console.log(submitted, 'after submit');
   }
 
 
@@ -74,17 +84,22 @@ export default function UpComingEvents() {
                 </Field>
                 <div className="grid grid-cols-2 gap-4">
 
-                  {/* <Field>
-                    <FieldLabel htmlFor="form-country">Event Type</FieldLabel> */}
+                  <Field>
+                    <FieldLabel htmlFor="form-country">Event Type</FieldLabel>
+                    <Select
+                      // value={eventType}
+                      name="eventType"
+                    >
                   <Suspense fallback={<h1>Loading...</h1>}>
-
                   <SelectEventType  />
-                  </Suspense>
-                  {/* </Field> */}
+                    </Suspense>
+                    
+                  </Select>
+                  </Field>
 
                   <Field>
-                    <FieldLabel htmlFor="form-phone">Date</FieldLabel>
-                    <Input id="form-phone" type="date" placeholder="22-06-2006" />
+                    <FieldLabel htmlFor="form-date">Date</FieldLabel>
+                    <Input id="form-date" name='eventDate' type="date" placeholder="22-06-2006" />
                   </Field>
 
                 </div>

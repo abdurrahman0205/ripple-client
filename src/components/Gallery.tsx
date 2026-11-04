@@ -1,20 +1,24 @@
-import React from 'react';
+import { Tag } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
-import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { Badge } from './ui/badge';
-import { Tag } from 'lucide-react';
-import { Button } from './ui/button';
+} from "@/components/ui/carousel";
+import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 const Gallery = () => {
-
-
-  const item = <>
+  const item = (
     <Card className="relative mx-auto w-full pt-0">
       <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
       <img
@@ -24,14 +28,13 @@ const Gallery = () => {
       />
       <CardHeader>
         <CardAction>
-          <Badge variant="secondary"><Tag />Featured</Badge>
+          <Badge variant="secondary">
+            <Tag />
+            Featured
+          </Badge>
         </CardAction>
         <CardTitle>Design systems meetup</CardTitle>
         <CardDescription>
-          A practical talk on component APIs, accessibility, and shipping
-          faster.
-          A practical talk on component APIs, accessibility, and shipping
-          faster.
           A practical talk on component APIs, accessibility, and shipping
           faster.
         </CardDescription>
@@ -40,24 +43,34 @@ const Gallery = () => {
         <Button className="w-full">View Event</Button>
       </CardFooter>
     </Card>
-  </>
+  );
 
   return (
-    <div>
-      <div className='flex justify-center items-center mt-10 '>
-
+    // px-14 keeps the offscreen nav buttons (-left-12 / -right-12) inside the
+    // view so they can never stretch the page horizontally.
+    <div className="mx-auto mt-10 max-w-6xl px-4">
+      <div className="px-14">
         <Carousel>
           <CarouselContent>
-            <CarouselItem className='basis-1/3'>{item}</CarouselItem>
-            <CarouselItem className='basis-1/3'>{item}</CarouselItem>
-            <CarouselItem className='basis-1/3'>{item}</CarouselItem>
-            <CarouselItem className='basis-1/3'>{item}</CarouselItem>
-            <CarouselItem className='basis-1/3'>{item}</CarouselItem>
+            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              {item}
+            </CarouselItem>
+            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              {item}
+            </CarouselItem>
+            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              {item}
+            </CarouselItem>
+            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              {item}
+            </CarouselItem>
+            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              {item}
+            </CarouselItem>
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
-
       </div>
     </div>
   );

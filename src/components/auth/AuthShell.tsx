@@ -2,13 +2,8 @@ import type React from "react";
 
 // Auth pages split the viewport into two equal halves (grid, Tailwind only).
 // Left  -> the auth card (passed in as children)
-// Right -> placeholder image, cut by a 45° angled divider
-// Layout/styling only: no state, no handlers, no links.
-//
-// The divider is a huge square rotated -45° and filled with the page
-// background. Its leading edge sits exactly on the 45° line that runs from
-// the top-left corner of the image panel down to the right, so the photo is
-// only visible on the upper-right side of that line.
+// Right -> placeholder image, clipped by a 45° diagonal so the photo fills the
+// upper-right half of the panel (a `clip-path`, replaceable by an SVG mask later).
 const AuthShell = ({ children }: { children: React.ReactNode }) => {
   return (
     <section className="grid min-h-[calc(100svh-4rem)] grid-cols-1 lg:grid-cols-2">
@@ -22,11 +17,8 @@ const AuthShell = ({ children }: { children: React.ReactNode }) => {
         <img
           src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1600&q=80"
           alt="Community volunteers"
-          className="absolute inset-0 size-full object-cover"
+          className="absolute inset-0 size-full object-cover lg:[clip-path:polygon(0_0,100%_0,100%_100%)]"
         />
-
-        {/* 45° divider wedge — hidden on mobile, where the panel is a band */}
-        <div className="absolute top-[-29.29vmax] left-[-170.71vmax] hidden size-[200vmax] -rotate-45 bg-background lg:block" />
       </div>
     </section>
   );
