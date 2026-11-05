@@ -9,3 +9,7 @@ export interface EventData {
   guidelines: string[];
   organizer: string;
 }
+
+export interface EventDetailsPageProps {
+  params: Promise<{id:string}>
+}

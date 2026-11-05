@@ -10,8 +10,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { EventDetailsPageProps } from "@/lib/type";
 
-const EventDetailsPage = () => {
+const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
+
+  const { id } = await params;
+  const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
+  const events = await getEvent.json()
+
+  console.log(events);
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       {/* Hero */}
