@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { toast } from 'react-toastify';
 
 
 const NavProfile = () => {
@@ -39,6 +40,7 @@ const NavProfile = () => {
 
   const handleSignOut = async () => {
     await signOut();
+    toast.success('Sign out successfull!!')
   }
 
 

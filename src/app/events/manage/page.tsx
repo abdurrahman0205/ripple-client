@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import EventCard from "@/components/card/EventCard";
 import { EventData } from "@/lib/type";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const getManageEvents = async () => {
   try {
@@ -27,6 +29,13 @@ const ManageEventsPage = async () => {
 
 
   const events = await getManageEvents()
+
+  const token = await auth.api.getToken({
+    headers: await headers()
+  }) 
+
+  console.log(token);
+
 
   return (
     <div className="mx-auto min-h-[calc(100vh-4rem)] max-w-6xl px-4 py-8">

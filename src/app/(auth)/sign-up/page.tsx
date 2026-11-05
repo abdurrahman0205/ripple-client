@@ -19,8 +19,9 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 /*
   VALIDATION — to be added later (no validation runs right now):
@@ -38,6 +39,13 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
 
+  const handleGoogleSignIn = async () => {
+      const data = await signIn.social({
+        provider: 'google'
+      })
+      toast.success('Sign in successfull!!')
+      
+    }
   
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -192,6 +200,7 @@ const SignUp = () => {
 
         {/* Social sign in */}
         <Button
+          onClick={handleGoogleSignIn}
           type="button"
           variant="outline"
           className="h-12 w-full gap-3 rounded-xl text-base font-semibold dark:bg-transparent"

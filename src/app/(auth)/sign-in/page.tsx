@@ -7,18 +7,9 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { signIn } from "@/lib/auth-client";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
-/*
-  VALIDATION — to be added later (no validation runs right now):
-  1. Add `onSubmit={(e) => { e.preventDefault(); ... }}` to the <form>.
-  2. Read the values: `const data = Object.fromEntries(new FormData(e.currentTarget))`.
-  3. Check:
-       - email    -> required + /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-       - password -> required + minimum 6 characters
-  4. Keep the messages in a state object and render them with
-     <FieldError errors={[{ message: '...' }]} /> inside the matching <Field>,
-     or set `aria-invalid` on the <Input> for the inline styling.
-*/
+
 
 const SignIn = () => {
 
@@ -29,18 +20,23 @@ const SignIn = () => {
       const formData = new FormData(e.currentTarget);
       const userData = Object.fromEntries(formData.entries()) as {name: string, email:string, password: string};
   
-      console.log(userData, 'before submit');
-  
       const { data, error } = await signIn.email({
         ...userData,
         callbackURL: '/',
       })
   
-      console.log(userData, 'after submit');
+
   
     }
 
 
+  const handleGoogleSignIn = async () => {
+    const data = await signIn.social({
+      provider: 'google'
+    })
+    toast.success('Sign in successfull!!')
+    
+  }
 
   return (
     <AuthShell>
@@ -133,6 +129,7 @@ const SignIn = () => {
 
         {/* Social sign in */}
         <Button
+          onClick={handleGoogleSignIn}
           type="button"
           variant="outline"
           className="h-12 w-full gap-3 rounded-xl text-base font-semibold dark:bg-transparent"

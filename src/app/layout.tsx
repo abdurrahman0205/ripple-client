@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/components/navbar/Navbar";
 import { ThemeProvider } from "@/components/provider/theme-provider";
 import Footer from "@/components/Footer";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           <main>{children}</main>
           <Footer />
-
+          <ToastContainer />
         </ThemeProvider>
       </body>
     </html>

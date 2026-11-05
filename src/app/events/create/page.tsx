@@ -10,48 +10,60 @@ import {
 import { Input } from "@/components/ui/input"
 import { Select } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { useSession } from "@/lib/auth-client"
+import { auth } from "@/lib/auth"
+import { authClient, useSession } from "@/lib/auth-client"
 import { Plus } from "lucide-react"
 import { redirect } from "next/navigation"
-import { Suspense, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
+import { toast } from "react-toastify"
 
 
 
 export default function UpComingEvents() {
   
   const { data: session } = useSession()
-  const [eventType, setEventType]= useState()
+  const [today, setToday] = useState('')
+
+  useEffect(() => {
+    setToday(new Date().toLocaleDateString('en-US'))
+  }, [])
+  
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const { data, error } = await authClient.token();
+    const token = data?.token
+
     const formData = new FormData(e.currentTarget);
     const eventData = Object.fromEntries(formData.entries())
 
-    const data = {
+    const addData = {
       ...eventData
     }
 
-    console.log(data, 'before submit');
+    console.log(addData, 'before submit');
 
 
 
-    // /api/create-events ${process.env.BASE_API_URL}
+    
+
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/create-events`, {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(addData),
     })
     
     const submitted = await res.json();
 
     if (submitted?.acknowledged) { 
-      alert('Successfully added to')
+      toast.success('Successfully created the event')
     } else {
-      alert('failed!!')
+      toast.error('Event creation failed!!')
     }
 
     console.log(submitted, 'after submit');
