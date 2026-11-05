@@ -24,16 +24,13 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
     headers: await headers()
   })
 
-  const token = await auth.api.getToken({
+  const data = await auth.api.getToken({
     headers: await headers()
   })
+ 
+  const token = data.token
 
-
-
-  const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
-  const event = await getEvent.json()
-
-
+  
 
   const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`, {
     headers: {
@@ -42,6 +39,13 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   })
   const users = await getUser.json()
 
+  const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
+  const event = await getEvent.json()
+
+
+  console.log(users)
+  
+  
   const user = users.find((user: { name: string, email: string, image: string }) => {
     return user.email === event.organizer
   })
@@ -122,7 +126,7 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
             Volunteer Guidelines
           </h3>
           <ul className="mt-4 space-y-3">
-            {event.guidelines.map((guideline: string[], i: number) => (
+            {event?.guidelines.map((guideline: string[], i: number) => (
               <li
                 key={i}
                 className="flex items-start gap-3 text-muted-foreground"
@@ -148,7 +152,7 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
               </Avatar>
 
               <div>
-                <p className="font-semibold">{user.name}</p>
+                <p className="font-semibold">{user?.name}</p>
                 <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
                   <Mail className="size-3.5" />
                   {event.organizer}

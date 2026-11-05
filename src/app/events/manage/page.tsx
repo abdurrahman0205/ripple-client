@@ -30,11 +30,11 @@ const ManageEventsPage = async () => {
 
   const events = await getManageEvents()
 
-  const token = await auth.api.getToken({
-    headers: await headers()
-  })
+  // const token = await auth.api.getToken({
+  //   headers: await headers()
+  // })
 
-  console.log(token);
+  
 
 
   return (

@@ -7,9 +7,7 @@ import NavProfile from './NavProfile';
 import Image from 'next/image';
 import Logo from '@/assets/images/ripple-log.svg'
 
-// Navbar layout setup by AI: three zones matching the design —
-// brand (left) · "Upcoming Events" link (center) · theme toggle + login (right).
-// Layout/styling only; existing components and logic were left untouched.
+
 const Navbar = () => {
 
 
@@ -34,15 +32,13 @@ const Navbar = () => {
 
         {/* Left — brand: logo badge + name + tagline */}
         <div className='flex flex-1 items-center gap-20'>
+          
           <div className='flex items-center gap-1'>
-            
+
             <Image src={Logo} width={40} height={40} className='size-30' alt='Ripple Logo' />
-           
-            <div className='flex flex-col leading-tight'>
-              <span className='text-lg font-bold text-emerald-400'>Ripple</span>
-              <span className='text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground'>
-                Community Action
-              </span>
+
+            <div className='leading-tight'>
+             <span className='text-lg font-bold text-emerald-400'>Ripple</span>
             </div>
           </div>
 
