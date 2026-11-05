@@ -3,8 +3,9 @@
 import { Globe, Image as ImageIcon, Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import type { SVGProps } from "react";
+import Logo from '@/assets/images/ripple-log.svg'
 
-// lucide-react has no brand icons — placeholder SVG marks for the socials.
+
 const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
     <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.07 1.4-2.07 2.86V21h-4z" />
@@ -50,6 +51,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
 
 // Footer layout cloned from the design — layout/UI only, no behavior.
 // Colors use shadcn tokens (card / border / muted-foreground ...) so the
@@ -57,30 +59,27 @@ import { Separator } from "@/components/ui/separator";
 const Footer = () => {
   const columns = [
     {
-      title: "Empresa",
+      title: "Ripple",
       links: [
-        { label: "Sobre Nós", href: "#" },
-        { label: "Serviços", href: "#" },
-        { label: "Lorem don't know", href: "#" },
-        { label: "Testemunhos", href: "#" },
-        { label: "Contacto", href: "#" },
+        { label: "Services", href: "#" },
+        { label: "Terms", href: "#" },
+        { label: "Contact", href: "#" },
       ],
     },
     {
-      title: "Navegação",
+      title: "Navigation",
       links: [
-        { label: "Benefícios principais", href: "#" },
-        { label: "Os nossos serviços", href: "#" },
-        { label: "Porquê salesforce", href: "#" },
-        { label: "Testemunhos", href: "#" },
+        { label: "Homes", href: "#" },
+        { label: "Upcoming events", href: "#" },
+        
       ],
     },
   ];
 
   const contacts = [
-    { icon: Mail, label: "info@azimute.pt", href: "mailto:info@azimute.pt" },
-    { icon: Phone, label: "+351 123 456 789", href: "tel:+351123456789" },
-    { icon: MapPin, label: "Lisboa, Portugal", href: "#" },
+    { icon: Mail, label: "Email", href: "ripple@gmail.com" },
+    { icon: Phone, label: "Phone", href: "tel:+8801787362846" },
+    { icon: MapPin, label: "Location", href: "#" },
   ];
 
   const socials = [
@@ -97,16 +96,19 @@ const Footer = () => {
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2.5">
             {/* Logo placeholder — swap with the real logo asset when available */}
-            <span className="flex size-9 items-center justify-center rounded-lg border border-border text-blue-600">
-              <ImageIcon className="size-5" />
+            <span className="flex items-center justify-center rounded-lg border border-border text-blue-600">
+              <Image src={Logo} width={60} height={60} className='size-9' alt='Ripple Logo' />
             </span>
             <span className="text-2xl font-bold tracking-tight text-foreground">
-              azimute
+              Ripple
             </span>
           </div>
           <p className="text-sm text-foreground md:text-base">
-            Transformação digital que realmente funciona.
+            Transform the society like a rippe flowing through the water. 
           </p>
+          <p
+            className="text-sm text-foreground md:text-base"
+          >Small wave, slow work but big impact.</p>
         </div>
 
         <Separator className="my-8 bg-border" />

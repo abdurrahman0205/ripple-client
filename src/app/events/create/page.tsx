@@ -39,15 +39,14 @@ export default function UpComingEvents() {
     const eventData = Object.fromEntries(formData.entries())
 
     const addData = {
-      ...eventData
+      ...eventData,
+      guidelines: [
+        "Wash your hands and wear gloves and a mask while packing food.",
+        "Arrive 15 minutes early and stay at your assigned packing station.",
+        "Do not eat or taste the food that is being packed.",
+        "Distribute meals calmly and keep recipients in an orderly line."
+      ]
     }
-
-    console.log(addData, 'before submit');
-
-
-
-    
-
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/create-events`, {
       method: 'POST',
@@ -70,6 +69,10 @@ export default function UpComingEvents() {
   }
 
 
+
+
+
+  // const guidelines = []
   return (
     <div className="mt-10">
       <div>
@@ -111,7 +114,8 @@ export default function UpComingEvents() {
 
                   <Field>
                     <FieldLabel htmlFor="form-date">Date</FieldLabel>
-                    <Input id="form-date" name='eventDate' type="date" placeholder="22-06-2006" />
+                    <Input id="form-date" name='eventDate' type="date"
+                    min={today}  placeholder="22-06-2006" />
                   </Field>
 
                 </div>
@@ -137,7 +141,7 @@ export default function UpComingEvents() {
                 <Field>
                   <FieldLabel htmlFor="form-address">Volunteer Guidelines
                   </FieldLabel>
-                  <Input name='description' type="area"  placeholder="123 Main St" disabled />
+                  <Input name='description' type="area"  value={'uavailable at the moment'} disabled />
                 </Field>
 
                 <Field>

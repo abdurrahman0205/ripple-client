@@ -18,7 +18,7 @@ const getManageEvents = async () => {
       Status: ${res.status}`);
       return []
     }
-  return await res.json()
+    return await res.json()
   } catch (error) {
     console.warn('Error:', error)
     return []
@@ -32,7 +32,7 @@ const ManageEventsPage = async () => {
 
   const token = await auth.api.getToken({
     headers: await headers()
-  }) 
+  })
 
   console.log(token);
 
@@ -70,32 +70,32 @@ const ManageEventsPage = async () => {
           <EventCard
             key={event._id}
             event={event}
-            // actions={
-            //   <div className="grid w-full grid-cols-3 gap-2">
-            //     <Button
-            //       variant="outline"
-            //       className="h-10 rounded-xl"
-            //       title="Edit event"
-            //     >
-            //       <Pencil data-icon="inline-start" />
-            //       Edit
-            //     </Button>
-            //     <Link href={`/events/${event.id}`} className="w-full">
-            //       <Button className="h-10 w-full rounded-xl">
-            //         <Eye data-icon="inline-start" />
-            //         View
-            //       </Button>
-            //     </Link>
-            //     <Button
-            //       variant="destructive"
-            //       className="h-10 rounded-xl"
-            //       title="Delete event"
-            //     >
-            //       <Trash2 data-icon="inline-start" />
-            //       Delete
-            //     </Button>
-            //   </div>
-            // }
+          // actions={
+          //   <div className="grid w-full grid-cols-3 gap-2">
+          //     <Button
+          //       variant="outline"
+          //       className="h-10 rounded-xl"
+          //       title="Edit event"
+          //     >
+          //       <Pencil data-icon="inline-start" />
+          //       Edit
+          //     </Button>
+          //     <Link href={`/events/${event.id}`} className="w-full">
+          //       <Button className="h-10 w-full rounded-xl">
+          //         <Eye data-icon="inline-start" />
+          //         View
+          //       </Button>
+          //     </Link>
+          //     <Button
+          //       variant="destructive"
+          //       className="h-10 rounded-xl"
+          //       title="Delete event"
+          //     >
+          //       <Trash2 data-icon="inline-start" />
+          //       Delete
+          //     </Button>
+          //   </div>
+          // }
           />
         ))}
       </div>

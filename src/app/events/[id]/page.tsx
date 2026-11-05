@@ -12,10 +12,19 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { EventDetailsPageProps } from "@/lib/type";
 import JoinEvent from "@/components/joinevent";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
-const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
+const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
 
   const { id } = await params;
+
+  const session = await auth.api.getSession({
+    headers: await headers() 
+  })
+
+
   const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
   const event = await getEvent.json()
 
@@ -24,7 +33,9 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
   const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`)
   const users =await getUser.json()
 
-  const user = users.find((user: { name: string, email: string, image: string }) => { user.email === event.organizer })
+  const user = users.find((user: { name: string, email: string, image: string }) => {
+    return user.email === event.organizer
+  })
 
 
   return (
@@ -72,9 +83,9 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
           </div>
           <div>
             <p className="text-lg font-semibold">2 Volunteers Joined</p>
-            <p className="text-sm text-muted-foreground">
+            {session?.user ? <></> : <><p className="text-sm text-muted-foreground">
               Sign up to join hands for this drive
-            </p>
+            </p></>}
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -121,11 +132,14 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
               Initiative Organizer
             </h3>
             <div className="mt-4 flex items-center gap-3">
-              <div className="flex size-12 items-center justify-center rounded-full bg-muted text-lg font-medium">
-                {}
-              </div>
+                <Avatar size='lg'>
+                  <AvatarFallback>
+                    {user?.name.slice(0,1)}
+                  </AvatarFallback>
+                </Avatar>
+            
               <div>
-                <p className="font-semibold">{user}</p>
+                <p className="font-semibold">{user.name}</p>
                 <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
                   <Mail className="size-3.5" />
                   {event.organizer}
@@ -144,7 +158,7 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
               Confirmed Volunteers (2)
             </h3>
             <ul className="mt-4 space-y-3">
-              {["abc", "jony"].map((name) => (
+              {["Karim", "Abdur Rakib"].map((name) => (
                 <li key={name} className="flex items-center gap-3">
                   <div className="flex size-9 items-center justify-center rounded-full bg-muted text-sm font-medium uppercase">
                     {name[0]}

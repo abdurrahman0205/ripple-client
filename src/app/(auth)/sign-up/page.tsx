@@ -59,7 +59,12 @@ const SignUp = () => {
       ...userData
     })
 
-    console.log(userData, 'after submit');
+    if (data?.user) {
+      toast.success('Account created successfully.')
+    } else {
+      toast.error('Something went wrong!!')
+      
+    }
 
   }
 
