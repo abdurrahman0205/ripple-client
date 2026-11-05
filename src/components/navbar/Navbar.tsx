@@ -4,6 +4,8 @@ import { CalendarDays, HeartHandshake, LogIn, Moon } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import NavProfile from './NavProfile';
+import Image from 'next/image';
+import Logo from '@/assets/images/ripple-log.svg'
 
 // Navbar layout setup by AI: three zones matching the design —
 // brand (left) · "Upcoming Events" link (center) · theme toggle + login (right).
@@ -25,17 +27,17 @@ const Navbar = () => {
   </>
 
   return (
-    // Sticky navbar: pinned to the top of the viewport while the page scrolls — layout change by AI
+
     <nav className='sticky top-0 z-50 border-b bg-background'>
 
       <div className='container mx-auto flex h-16 items-center justify-between gap-4 px-4'>
 
         {/* Left — brand: logo badge + name + tagline */}
         <div className='flex flex-1 items-center gap-20'>
-          <div className='flex items-center gap-3'>
-            <div className='flex size-10 shrink-0 items-center  justify-center rounded-xl border border-emerald-400 text-emerald-400'>
-              <HeartHandshake className='size-5' />
-            </div>
+          <div className='flex items-center gap-1'>
+            
+            <Image src={Logo} width={40} height={40} className='size-30' alt='Ripple Logo' />
+           
             <div className='flex flex-col leading-tight'>
               <span className='text-lg font-bold text-emerald-400'>Ripple</span>
               <span className='text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground'>

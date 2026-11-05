@@ -16,8 +16,15 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import EventCard from "./card/EventCard";
+import { EventData } from "@/lib/type";
 
-const Gallery = () => {
+const Gallery = async () => {
+
+  const res = await fetch(`${process.env.BASE_API_URL}/api/events/past-events`)
+  const pastEvent = await res.json()
+  const events = pastEvent;
+
   const item = (
     <Card className="relative mx-auto w-full pt-0">
       <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
@@ -52,21 +59,10 @@ const Gallery = () => {
       <div className="px-14">
         <Carousel>
           <CarouselContent>
-            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
-              {item}
-            </CarouselItem>
-            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
-              {item}
-            </CarouselItem>
-            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
-              {item}
-            </CarouselItem>
-            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
-              {item}
-            </CarouselItem>
-            <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
-              {item}
-            </CarouselItem>
+            {events.map((event: EventData) =>(<CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3">
+              <EventCard event={event} />
+            </CarouselItem>))}
+            
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />

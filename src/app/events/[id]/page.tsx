@@ -11,14 +11,21 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { EventDetailsPageProps } from "@/lib/type";
+import JoinEvent from "@/components/joinevent";
 
 const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
 
   const { id } = await params;
   const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
-  const events = await getEvent.json()
+  const event = await getEvent.json()
 
-  console.log(events);
+  console.log(event);
+  
+  const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`)
+  const users =await getUser.json()
+
+  const user = users.find((user: { name: string, email: string, image: string }) => { user.email === event.organizer })
+
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
@@ -37,21 +44,21 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
           className="absolute top-6 left-6 h-auto rounded-full bg-background/80 px-4 py-2 backdrop-blur"
         >
           <Heart className="text-emerald-400" data-icon="inline-start" />
-          Winter Relief
+          {event?.eventType}
         </Badge>
 
         <div className="absolute right-8 bottom-8 left-8 space-y-3">
           <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Libero mollitia dolo
+            {event?.title}
           </h1>
           <div className="flex flex-wrap items-center gap-6 text-white/85">
             <span className="flex items-center gap-2">
               <MapPin className="size-4 text-emerald-400" />
-              Fugiat sit esse ut
+              {event?.location}
             </span>
             <span className="flex items-center gap-2">
               <Calendar className="size-4 text-emerald-400" />
-              Tue, Nov 3, 2026
+              {event?.eventDate}
             </span>
           </div>
         </div>
@@ -78,10 +85,7 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
           >
             <Share2 className="size-5" />
           </Button>
-          <Button className="h-12 rounded-xl bg-emerald-300 px-6 text-base font-semibold text-emerald-950 hover:bg-emerald-200">
-            <Heart data-icon="inline-start" />
-            Join Event
-          </Button>
+          <JoinEvent event={event} />
         </div>
       </div>
 
@@ -90,7 +94,7 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
         {/* About */}
         <div>
           <h2 className="text-2xl font-bold">About this Social Initiative</h2>
-          <p className="mt-4 text-muted-foreground">Aut odit ullamco nis</p>
+          <p className="mt-4 text-muted-foreground">{event?.description}</p>
 
           <Separator className="my-6" />
 
@@ -98,13 +102,9 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
             Volunteer Guidelines
           </h3>
           <ul className="mt-4 space-y-3">
-            {[
-              "Please arrive 15 minutes before the scheduled time at the designated location.",
-              "Wear comfortable clothing suitable for physical social work and distribution.",
-              "Bring any pre-coordinated relief packages or distribution items if requested.",
-            ].map((guideline) => (
+            {event.guidelines.map((guideline: string[], i: number) => (
               <li
-                key={guideline}
+                key={i}
                 className="flex items-start gap-3 text-muted-foreground"
               >
                 <span className="mt-2 size-2 shrink-0 rounded-full bg-emerald-400" />
@@ -122,13 +122,13 @@ const EventDetailsPage = async ({params}: EventDetailsPageProps) => {
             </h3>
             <div className="mt-4 flex items-center gap-3">
               <div className="flex size-12 items-center justify-center rounded-full bg-muted text-lg font-medium">
-                E
+                {}
               </div>
               <div>
-                <p className="font-semibold">Eum ea repellendus</p>
+                <p className="font-semibold">{user}</p>
                 <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
                   <Mail className="size-3.5" />
-                  fagapyg@mailinator.com
+                  {event.organizer}
                 </p>
               </div>
             </div>

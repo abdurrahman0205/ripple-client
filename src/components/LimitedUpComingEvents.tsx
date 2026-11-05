@@ -26,6 +26,7 @@ const LimitedUpComingEvents = async () => {
   // console.log(eventsPromise);
   return (
     <section className="mx-auto max-w-6xl px-4 py-10">
+      <h1 className="text-2xl font-bold my-4">Upcoming Events</h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {events.map((event: EventData) => (
           <EventCard key={event._id} event={event} />

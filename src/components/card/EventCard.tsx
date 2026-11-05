@@ -6,6 +6,8 @@ import { Badge } from '../ui/badge';
 import { Separator } from '../ui/separator';
 import { Button } from '../ui/button';
 import { EventData } from '@/lib/type';
+import { cn } from '@/lib/utils';
+
 
 
 
@@ -50,9 +52,10 @@ import { EventData } from '@/lib/type';
 
 
 const EventCard = ({
-  event
+  event, pastevent
 }: {
-  event: EventData
+  event: EventData,
+  pastevent?: boolean
 }) => {
   return (
     <Card className="pt-0">
@@ -92,13 +95,13 @@ const EventCard = ({
         </p>
       </CardContent>
 
-      <CardFooter className="border-t-0 bg-transparent"> 
-          <Link href={`/events/${event._id}`} className="w-full">
-            <Button className="h-12 w-full rounded-xl bg-emerald-300 text-base font-semibold text-emerald-950 hover:bg-emerald-200">
-              View Event
-              <ArrowRight data-icon="inline-end" />
-            </Button>
-          </Link>   
+      <CardFooter className="border-t-0 bg-transparent">
+        <Link href={`/events/${event._id}`} className="w-full">
+          <Button className={cn("h-12 w-full rounded-xl bg-emerald-300 text-base font-semibold text-emerald-950 hover:bg-emerald-200",)}>
+            View Event
+            <ArrowRight data-icon="inline-end" />
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

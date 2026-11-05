@@ -98,11 +98,13 @@ const NavProfile = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* <Button //
+          <Button 
             onClick={handleSignOut}
-            variant='destructive' />
-            <LogOut />
-          </Button> */}
+            variant='destructive'>
+          <LogOut />
+        </Button>
+
+          
         </div>
       </> : <>
         <Link href='/sign-in'>
