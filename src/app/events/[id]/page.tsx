@@ -21,17 +21,26 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   const { id } = await params;
 
   const session = await auth.api.getSession({
-    headers: await headers() 
+    headers: await headers()
   })
+
+  const token = await auth.api.getToken({
+    headers: await headers()
+  })
+
 
 
   const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`)
   const event = await getEvent.json()
 
-  console.log(event);
-  
-  const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`)
-  const users =await getUser.json()
+
+
+  const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+  const users = await getUser.json()
 
   const user = users.find((user: { name: string, email: string, image: string }) => {
     return user.email === event.organizer
@@ -132,12 +141,12 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
               Initiative Organizer
             </h3>
             <div className="mt-4 flex items-center gap-3">
-                <Avatar size='lg'>
-                  <AvatarFallback>
-                    {user?.name.slice(0,1)}
-                  </AvatarFallback>
-                </Avatar>
-            
+              <Avatar size='lg'>
+                <AvatarFallback>
+                  {user?.name.slice(0, 1)}
+                </AvatarFallback>
+              </Avatar>
+
               <div>
                 <p className="font-semibold">{user.name}</p>
                 <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
