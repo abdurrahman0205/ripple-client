@@ -10,8 +10,8 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MIN_PASSWORD_LENGTH = 6;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordLength = 6;
 
 type SignInErrors = {
   email?: string;
@@ -32,21 +32,27 @@ const SignIn = () => {
       password: string;
     };
 
-    // Validation — email format + password length only
+  
     const nextErrors: SignInErrors = {};
-    if (!EMAIL_REGEX.test(userData.email)) {
+    if (!emailRegex.test(userData.email)) {
       nextErrors.email = "Please enter a valid email address.";
     }
-    if (userData.password.length < MIN_PASSWORD_LENGTH) {
+    if (userData.password.length < passwordLength) {
       nextErrors.password = "Password must be at least 6 characters.";
     }
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
     setIsSubmitting(true);
-    const { error } = await signIn.email({
+
+    const { data, error } = await signIn.email({
       ...userData,
       callbackURL: "/",
+    },
+      {
+        onSuccess: () => {
+          toast.success('Sign in successfull!!')
+      }
     });
     setIsSubmitting(false);
 

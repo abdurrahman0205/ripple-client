@@ -2,10 +2,7 @@ import {
   ArrowRight,
   Calendar,
   Leaf,
-  LogOut,
   MapPin,
-  Pencil,
-  Trash2,
   User,
 } from "lucide-react";
 import Link from "next/link";
@@ -14,6 +11,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { DeleteEvent } from "../deleteEvent";
+import { EditEvent } from "../editEvent";
 
 /* Placeholder until real event covers are uploaded everywhere. */
 const PLACEHOLDER_IMAGE =
@@ -141,9 +139,8 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
         <Separator className="mt-2" />
 
         {variant === "manage" ? (
-          /* Manage actions: Edit + Delete on the left, wider View Details right */
-          <div className="grid grid-cols-[1.4fr_1.5fr_1.15fr] gap-2.5 pt-1">
-
+          /* Manage actions: View Details (left) + Edit popover + Delete */
+          <div className="grid grid-cols-[1.6fr_1fr_1fr] gap-2.5 pt-1">
             <Link href={href} className="w-full">
               <Button className="h-11 w-full rounded-xl bg-ar-primary text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover">
                 View Details
@@ -151,17 +148,10 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
               </Button>
             </Link>
 
-            <Button
-              variant="outline"
-              className="h-11 rounded-xl text-sm font-semibold"
-              title="Edit event"
-            >
-              <Pencil data-icon="inline-start" />
-              Edit
-            </Button>
-            
+            {/* Popover form pre-filled with the event's current info */}
+            <EditEvent event={event} />
+
             <DeleteEvent id={event._id} />
-            
           </div>
         ) : (
           /* Organizer row + View Event */
@@ -181,7 +171,7 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
             </div>
             {variant === "joined" ? (
              
-                <Link href={'#'} className="h-11 rounded-xl bg-ar-primary text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover flex items-center px-4">
+                <Link href={href} className="flex h-11 items-center rounded-xl bg-ar-primary px-4 text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover">
                   View
                   <ArrowRight data-icon="inline-end" />
                 </Link>

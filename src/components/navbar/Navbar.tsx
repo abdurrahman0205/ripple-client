@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle';
 import Link from 'next/link';
 import NavProfile from './NavProfile';
 import Image from 'next/image';
+import {cn} from '@/lib/utils'
 import Logo from '@/assets/images/ripple-log.svg'
 
 
@@ -17,12 +18,13 @@ const Navbar = () => {
     // {menu: 'Navbar', link: '#'},
   ]
 
-  const NavMenuItem = <>
-    <ul className='flex items-center gap-2 bg-green-200'>
-      <li><Link href='#'></Link></li>
-      <li><Link href='#'></Link></li>
-    </ul>
-  </>
+  // const NavMenuItem = <>
+  //   <ul className='flex items-center gap-2 bg-green-200'>
+  //     <li><Link href='#' className=''></Link></li>
+      
+  //     <li><Link href='#'></Link></li>
+  //   </ul>
+  // </>
 
   return (
 
@@ -43,7 +45,7 @@ const Navbar = () => {
           </div>
 
           <ul className='flex items-center justify-between gap-4'>
-            {nav.map(navMenu => <li key={navMenu.menu} className='font-semibold text-sm text-foreground/90'><Link href={navMenu.link}>{navMenu?.menu}</Link></li>)}
+            {nav.map(navMenu => <li key={navMenu.menu} className={cn('font-semibold text-sm text-foreground/90')}><Link href={navMenu.link}>{navMenu?.menu}</Link></li>)}
           </ul>
 
         </div>

@@ -1,9 +1,10 @@
 'use client'
-import React from 'react';
+import React, { SetStateAction } from 'react';
 import { Button } from './ui/button';
 import { LogOut } from 'lucide-react';
-import { authClient } from '@/lib/auth-client';
+import { authClient, useSession } from '@/lib/auth-client';
 import { toast } from 'react-toastify';
+import { EventData } from '@/lib/type';
 
 
 const getToken = async () => {
@@ -11,7 +12,9 @@ const getToken = async () => {
   return data?.token;
 }
 
-const LeaveEvent = () => {
+const LeaveEvent = ({ event, setJoined }: { event: EventData, setJoined: React.Dispatch<React.SetStateAction<boolean>> }) => {
+
+  const { data: session } = useSession();
 
   const handleLeaveEvent = async () => {
 
@@ -22,19 +25,24 @@ const LeaveEvent = () => {
       {
         method: "DELETE",
         headers: {
+          'Content-Type':'application/json',
           authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          eventId: event._id,
+          userEmail: session?.user?.email
+        })
 
       },
     );
 
     const result = await res.json()
     if (result.acknowledged) {
-      // setJoined(true);
+      setJoined(false);
       toast.success("You left this event.");
-    } else toast.error(result?.message || "Could not join the event");
-
-    // setJoined(false);
+    } else {
+      toast.error(result?.message || "Could not join the event")
+    };
   
   };
 
@@ -42,8 +50,8 @@ const LeaveEvent = () => {
     <Button
       variant="destructive"
             onClick={handleLeaveEvent}
-      className="h-12 rounded-full px-6 text-base font-semibold">
-      <LogOut data-icon="inline-start" />
+      className="rounded-full px-8 py-6 text-base font-bold text-center items-center justify-center flex">
+      <LogOut />
       Leave
       
     </Button>

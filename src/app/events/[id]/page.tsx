@@ -49,19 +49,6 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   console.log('joined event id', count);
 
 
-  const res = await fetch(`${process.env.BASE_API_URL}/api/events/check-event-existance/${id}`)
-  const check = await res.json()
-
-  const findDataToCheck = check.find((event: { joinedEventId: string, useremail: string }) => session?.user?.email === event.useremail)
-
-  console.log('find dat', findDataToCheck);
-  const status = findDataToCheck?.joinedEventId === id ? true:false
-  console.log('status:',status, event.joinedEventId, id);
-
-
-    console.log('checking event list', check);
- 
-
   const user = users.find(
     (user: { name: string; email: string; image: string }) => {
       return user.email === event.organizer;
@@ -131,7 +118,7 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
           >
             <Share2 className="size-5" />
           </Button>
-          <JoinEvent event={event} status={status} />
+          <JoinEvent event={event} />
         </div>
       </div>
 

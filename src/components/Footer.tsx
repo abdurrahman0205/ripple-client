@@ -1,6 +1,10 @@
 "use client";
 
-import { Globe, Image as ImageIcon, Mail, MapPin, Phone } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 import Link from "next/link";
 import type { SVGProps } from "react";
 import Logo from '@/assets/images/ripple-log.svg'
@@ -43,13 +47,6 @@ const YoutubeIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
@@ -59,27 +56,38 @@ import Image from "next/image";
 const Footer = () => {
   const columns = [
     {
-      title: "Ripple",
+      title: "Explore",
       links: [
-        { label: "Services", href: "#" },
-        { label: "Terms", href: "#" },
-        { label: "Contact", href: "#" },
+        { label: "Home", href: "/" },
+        { label: "Upcoming Events", href: "/events" },
+        { label: "Joined Events", href: "/events/joined" },
       ],
     },
     {
-      title: "Navigation",
+      title: "Organize",
       links: [
-        { label: "Homes", href: "#" },
-        { label: "Upcoming events", href: "#" },
-        
+        { label: "Create an Event", href: "/events/create" },
+        { label: "Manage My Events", href: "/events/manage" },
       ],
     },
   ];
 
   const contacts = [
-    { icon: Mail, label: "Email", href: "ripple@gmail.com" },
-    { icon: Phone, label: "Phone", href: "tel:+8801787362846" },
-    { icon: MapPin, label: "Location", href: "#" },
+    {
+      icon: Mail,
+      label: "ripple@gmail.com",
+      href: "mailto:ripple@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "+880 1787-362846",
+      href: "tel:+8801787362846",
+    },
+    {
+      icon: MapPin,
+      label: "Dhaka, Bangladesh",
+      href: null,
+    },
   ];
 
   const socials = [
@@ -95,20 +103,17 @@ const Footer = () => {
         {/* Top — brand + tagline */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-2.5">
-            {/* Logo placeholder — swap with the real logo asset when available */}
-            <span className="flex items-center justify-center rounded-lg border border-border text-blue-600">
+            <span className="flex items-center justify-center rounded-lg bg-ar-primary/10 text-ar-primary ring-1 ring-ar-primary/25">
               <Image src={Logo} width={60} height={60} className='size-9' alt='Ripple Logo' />
             </span>
             <span className="text-2xl font-bold tracking-tight text-foreground">
               Ripple
             </span>
           </div>
-          <p className="text-sm text-foreground md:text-base">
-            Transform the society like a rippe flowing through the water. 
+          <p className="max-w-sm text-balance text-sm text-muted-foreground md:text-base">
+            Small waves, steady work — but a big impact. Transform society like
+            a ripple flowing through the water.
           </p>
-          <p
-            className="text-sm text-foreground md:text-base"
-          >Small wave, slow work but big impact.</p>
         </div>
 
         <Separator className="my-8 bg-border" />
@@ -136,32 +141,38 @@ const Footer = () => {
               </div>
             ))}
 
-            {/* Contacto column */}
+            {/* Contact column */}
             <div className="flex flex-col gap-5">
               <h3 className="text-base font-semibold text-foreground">
-                Contacto
+                Contact
               </h3>
               <ul className="flex flex-col gap-4">
                 {contacts.map((contact) => (
                   <li key={contact.label} className="flex items-center gap-3">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border text-blue-500">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-ar-primary/10 text-ar-primary ring-1 ring-ar-primary/25">
                       <contact.icon className="size-4" />
                     </span>
-                    <Link
-                      href={contact.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                    >
-                      {contact.label}
-                    </Link>
+                    {contact.href ? (
+                      <Link
+                        href={contact.href}
+                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {contact.label}
+                      </Link>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">
+                        {contact.label}
+                      </span>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* Language select + social icons */}
+          {/* Social icons */}
           <div className="flex flex-col items-start gap-6 lg:items-end">
-            <p>Follow us</p>
+            <h3 className="text-base font-semibold text-foreground">Follow us</h3>
 
             <div className="flex items-center gap-3">
               {socials.map((social) => (
@@ -169,7 +180,7 @@ const Footer = () => {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="flex size-9 items-center justify-center rounded-lg border border-border text-foreground transition-colors hover:bg-muted"
+                  className="flex size-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-ar-primary/40 hover:bg-ar-primary/10 hover:text-ar-primary"
                 >
                   <social.icon className="size-4" />
                 </Link>
@@ -183,7 +194,7 @@ const Footer = () => {
         {/* Bottom — copyright + legal links */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-muted-foreground">
-            © 2026 Ripples 
+            © 2026 Ripple. Small waves, big impact.
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
             <Link

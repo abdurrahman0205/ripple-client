@@ -1,4 +1,4 @@
-import { CalendarRange, Compass } from "lucide-react";
+import { CalendarRange, CirclePlus, Compass } from "lucide-react";
 import Link from "next/link";
 import EventCard from "@/components/card/EventCard";
 import PageHeader from "@/components/PageHeader";
@@ -42,7 +42,14 @@ const UpcomingEvents = async () => {
         title="Upcoming Events"
         description="Discover the community cleanups, donation drives, and awareness
         campaigns happening around you — pick one and be part of the ripple."
-      />
+      >
+        <Link href="/events/create">
+          <Button className="h-12 rounded-xl bg-ar-primary px-6 text-base font-semibold text-ar-primary-foreground shadow-md shadow-ar-primary/25 hover:bg-ar-primary-hover">
+            <CirclePlus data-icon="inline-start" />
+            Create New Event
+          </Button>
+        </Link>
+      </PageHeader>
 
       {/* Event cards */}
       <div className="grid gap-6 pb-10 sm:grid-cols-2 lg:grid-cols-3">

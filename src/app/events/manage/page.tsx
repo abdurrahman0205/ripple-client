@@ -7,23 +7,6 @@ import type { EventData } from "@/lib/type";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
-// const getManageEvents = async () => {
-//   try {
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_BASE_API_URL as string}/api/events/manage`,
-//     );
-
-//     if (!res.ok) {
-//       console.warn(`Failed to fetch data.
-//       Status: ${res.status}`);
-//       return [];
-//     }
-//     return await res.json();
-//   } catch (error) {
-//     console.warn("Error:", error);
-//     return [];
-//   }
-// };
 
 const ManageEventsPage = async () => {
 
@@ -31,7 +14,7 @@ const ManageEventsPage = async () => {
     headers: await headers()
   })
 
-  // const eventsResponse = await getManageEvents();
+
   const res = await fetch(`${process.env.BASE_API_URL as string}/api/events/manage/${session?.user?.email}`)
   
   const eventsResponse = await res.json()
@@ -68,7 +51,7 @@ const ManageEventsPage = async () => {
         ))}
       </div>
 
-      {/* Empty state (shown when you have no created events) */}
+      {/* Empty state */}
       {events.length === 0 && (
         <div className="flex flex-col items-center rounded-3xl bg-ar-card/60 px-8 py-20 text-center ring-1 ring-ar-card-border">
           <div className="flex size-16 items-center justify-center rounded-2xl bg-ar-primary/10 ring-1 ring-ar-primary/25">
