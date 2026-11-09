@@ -12,14 +12,16 @@ const getToken = async () => {
   return data?.token;
 }
 
-const JoinEvent = ({ event }: { event: EventData }) => {
-  const [joined, setJoined] = useState(false);
+const JoinEvent = ({ event, status }: { event: EventData, status: boolean }) => {
+  const [joined, setJoined] = useState(status);
   const { data: session } = useSession();
 
-  // The signed-in user's email (null while the session loads / when logged out)
+  
+
+
+
   const userEmail = session?.user?.email;
 
-  // Your requested rule — organizer sees the disabled "Joined" button
   const isOrganizer = !!userEmail && userEmail === event.organizer;
 
   const handleJoinEvent = async () => {
@@ -58,6 +60,7 @@ const JoinEvent = ({ event }: { event: EventData }) => {
     } else toast.error(result?.message || "Could not join the event");
   };
 
+  
   
 
   // 1. Organizer -> disabled "Joined"

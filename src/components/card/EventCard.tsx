@@ -58,12 +58,6 @@ const EventCategoryBadge = ({ label }: { label: string }) => (
 
 type EventCardProps = {
   event: EventData;
-  /**
-   * default — vertical card with organizer row + "View Event" (home, events list)
-   * manage  — same body, but the footer becomes Edit / Delete / View Details
-   * joined  — same body, but "View Event" becomes a "Leave" button
-   * gallery — horizontal overlay card for the past-events carousel
-   */
   variant?: "default" | "manage" | "joined" | "gallery";
 };
 
@@ -148,7 +142,15 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
 
         {variant === "manage" ? (
           /* Manage actions: Edit + Delete on the left, wider View Details right */
-          <div className="grid grid-cols-[1fr_1.15fr_1.4fr] gap-2.5 pt-1">
+          <div className="grid grid-cols-[1.4fr_1.5fr_1.15fr] gap-2.5 pt-1">
+
+            <Link href={href} className="w-full">
+              <Button className="h-11 w-full rounded-xl bg-ar-primary text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover">
+                View Details
+                <ArrowRight data-icon="inline-end" />
+              </Button>
+            </Link>
+
             <Button
               variant="outline"
               className="h-11 rounded-xl text-sm font-semibold"
@@ -160,12 +162,6 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
             
             <DeleteEvent id={event._id} />
             
-            <Link href={href} className="w-full">
-              <Button className="h-11 w-full rounded-xl bg-ar-primary text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover">
-                View Details
-                <ArrowRight data-icon="inline-end" />
-              </Button>
-            </Link>
           </div>
         ) : (
           /* Organizer row + View Event */
@@ -184,15 +180,11 @@ const EventCard = ({ event, variant = "default" }: EventCardProps) => {
               </span>
             </div>
             {variant === "joined" ? (
-              /* Joined card: the view button is replaced by Leave */
-              <Button
-                variant="destructive"
-                className="h-11 rounded-xl px-5 text-base font-bold"
-                title="Leave this event"
-              >
-                <LogOut data-icon="inline-start" />
-                Leave
-              </Button>
+             
+                <Link href={'#'} className="h-11 rounded-xl bg-ar-primary text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover flex items-center px-4">
+                  View
+                  <ArrowRight data-icon="inline-end" />
+                </Link>
             ) : (
               <Link href={href}>
                 <Button className="h-11 rounded-xl bg-ar-primary px-5 text-base font-bold text-ar-primary-foreground hover:bg-ar-primary-hover">

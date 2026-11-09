@@ -22,6 +22,7 @@ const PLACEHOLDER_IMAGE =
 
 const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   const { id } = await params;
+  
 
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -41,9 +42,25 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   const users = await getUser.json();
 
   const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`);
-  const event: EventData = await getEvent.json();
+  const event = await getEvent.json();
 
-  console.log(users);
+  const getCount = await fetch(`${process.env.BASE_API_URL}/api/events/count/${id}`);
+  const count = await getCount.json();
+  console.log('joined event id', count);
+
+
+  const res = await fetch(`${process.env.BASE_API_URL}/api/events/check-event-existance/${id}`)
+  const check = await res.json()
+
+  const findDataToCheck = check.find((event: { joinedEventId: string, useremail: string }) => session?.user?.email === event.useremail)
+
+  console.log('find dat', findDataToCheck);
+  const status = findDataToCheck?.joinedEventId === id ? true:false
+  console.log('status:',status, event.joinedEventId, id);
+
+
+    console.log('checking event list', check);
+ 
 
   const user = users.find(
     (user: { name: string; email: string; image: string }) => {
@@ -53,7 +70,7 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
 
   return (
     <div className="relative mx-auto max-w-6xl px-4 py-8">
-      {/* Hero — cover comes from the event's own thumbnail (dynamic) */}
+      
       <div className="relative min-h-105 overflow-hidden rounded-3xl ring-1 ring-ar-card-border">
         <img
           src={event?.thumbnail || PLACEHOLDER_IMAGE}
@@ -96,8 +113,8 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
             <Users className="size-6 text-ar-primary" />
           </div>
           <div>
-            <p className="text-lg font-semibold">Be part of this drive</p>
-            <p className="text-lg font-semibold">Be part of this drive</p>
+            <p className="text-lg font-semibold">Volunteer: {(1 + count?.length)}</p>
+            
             {!session?.user && (
               <p className="text-sm text-muted-foreground">
                 Sign up or sign in to join hands for this drive
@@ -114,7 +131,7 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
           >
             <Share2 className="size-5" />
           </Button>
-          <JoinEvent event={event} />
+          <JoinEvent event={event} status={status} />
         </div>
       </div>
 
