@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button"
 import Link from 'next/link';
-import { Handshake, LogIn, LogOut, Plus } from 'lucide-react';
+import { CircleCheck, Handshake, LogIn, LogOut, Plus, Settings, Settings2 } from 'lucide-react';
 import { signOut, useSession } from '@/lib/auth-client';
 import { NavProfileSkeleton } from './NavProfileSkeleton';
 
@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { toast } from 'react-toastify';
+import { auth } from '@/lib/auth';
 
 
 const NavProfile = () => {
@@ -42,6 +43,8 @@ const NavProfile = () => {
     await signOut();
     toast.success('Sign out successfull!!')
   }
+
+
 
 
   return (
@@ -77,15 +80,15 @@ const NavProfile = () => {
                   className='cursor-pointer'
                   render={<Link href='/events/manage' />}
                 >
-                  <BellIcon />
+                  <Settings />
                   Manage event
                 </DropdownMenuItem>
 
                 <DropdownMenuItem
                   className='cursor-pointer'
-                  render={<Link href='/events/manage' />}
+                  render={<Link href='/events/joined' />}
                 >
-                  <Handshake />
+                  <CircleCheck />
                   Joined event
                 </DropdownMenuItem>
               </DropdownMenuGroup>

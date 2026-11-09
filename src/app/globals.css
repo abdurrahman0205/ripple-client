@@ -48,7 +48,19 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* Custom */
-  --color-theme-toggle-btn: var(--theme-toggle-btn)
+  --color-theme-toggle-btn: var(--theme-toggle-btn);
+
+  /* AR brand variables — change the app's main color here (one place per mode).
+     Light values live in :root, dark values in .dark below. */
+  --color-ar-primary: var(--ar-primary);
+  --color-ar-primary-hover: var(--ar-primary-hover);
+  --color-ar-primary-foreground: var(--ar-primary-foreground);
+  --color-ar-accent: var(--ar-accent);
+  --color-ar-ring: var(--ar-ring);
+  --color-ar-surface: var(--ar-surface);
+  --color-ar-surface-foreground: var(--ar-surface-foreground);
+  --color-ar-card: var(--ar-card);
+  --color-ar-card-border: var(--ar-card-border);
 }
 
 :root {
@@ -90,7 +102,25 @@
   --theme-toggle-btn-foreground: oklch(0.205 0 0);
   /* --hover-gray: oklch(55.6% 0 0); */
 
-
+  /*
+   * AR brand variables (light mode) — edit these to re-theme every "ar-*" color.
+   * --ar-primary                main brand color (buttons, CTAs)
+   * --ar-primary-hover          hover state of the main color
+   * --ar-primary-foreground     text/icons on top of --ar-primary
+   * --ar-accent                 secondary accent (icons, badges)
+   * --ar-ring                   focus rings & glow borders
+   * --ar-surface(-foreground)   soft tinted section background
+   * --ar-card(-border)          accent card background & its border
+   */
+  --ar-primary: oklch(0.63 0.14 155);
+  --ar-primary-hover: oklch(0.56 0.15 155);
+  --ar-primary-foreground: oklch(0.98 0.02 155);
+  --ar-accent: oklch(0.55 0.11 172);
+  --ar-ring: oklch(0.63 0.14 155);
+  --ar-surface: oklch(0.97 0.015 160);
+  --ar-surface-foreground: oklch(0.32 0.06 160);
+  --ar-card: oklch(0.99 0.008 160);
+  --ar-card-border: oklch(0.85 0.06 160);
 }
 
 .dark {
@@ -129,6 +159,17 @@
   /* Custom */
   --theme-toggle-btn: oklch(0.269 0 0);
   --theme-toggle-btn-foreground: oklch(0.985 0 0);
+
+  /* AR brand variables (dark mode) — edit these to re-theme every "ar-" color. */
+  --ar-primary: oklch(0.84 0.16 158);
+  --ar-primary-hover: oklch(0.78 0.17 158);
+  --ar-primary-foreground: oklch(0.22 0.05 160);
+  --ar-accent: oklch(0.8 0.12 180);
+  --ar-ring: oklch(0.84 0.16 158);
+  --ar-surface: oklch(0.25 0.03 165);
+  --ar-surface-foreground: oklch(0.85 0.07 160);
+  --ar-card: oklch(0.24 0.025 170);
+  --ar-card-border: oklch(0.84 0.16 158 / 25%);
 
 }
 

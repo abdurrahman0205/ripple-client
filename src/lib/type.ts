@@ -8,6 +8,7 @@ export interface EventData {
   description: string;
   guidelines: string[];
   organizer: string;
+  organizerName: string
 }
 
 export interface EventDetailsPageProps {
