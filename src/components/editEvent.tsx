@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea"
 import SelectEventType from "@/components/SelectEventType"
 import type { EventData } from "@/lib/type"
 import { toast } from "react-toastify"
+import { authClient } from "@/lib/auth-client"
 
 
 export function EditEvent({ event }: { event: EventData }) {
@@ -30,12 +31,19 @@ export function EditEvent({ event }: { event: EventData }) {
 
   const handleUpdateEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const { data, error } = await authClient.token();
+        const token = data?.token;
+
     const formData = new FormData(e.currentTarget)
     const updatedData = Object.fromEntries(formData.entries());
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/events/${event._id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`
+      },
       body: JSON.stringify(updatedData)
     })
     const status = await res.json()

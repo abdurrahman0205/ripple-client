@@ -18,7 +18,7 @@ const LeaveEvent = ({ event, setJoined }: { event: EventData, setJoined: React.D
 
   const handleLeaveEvent = async () => {
 
-    const token = getToken();
+    const token = await getToken();
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/events/leave`,

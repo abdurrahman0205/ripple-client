@@ -12,13 +12,25 @@ const JoinedEventsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers()
   })
+  const getToken = await auth.api.getToken({
+    headers: await headers()
+  })
+  const token = getToken.token
 
   const firstRes = await fetch(
-    `${process.env.BASE_API_URL}/api/events/manage/${session?.user?.email}`,
+    `${process.env.BASE_API_URL}/api/events/manage/${session?.user?.email}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    }
   );
 
   const secondRes = await fetch(
-    `${process.env.BASE_API_URL}/api/events/joined/${session?.user?.email}`,
+    `${process.env.BASE_API_URL}/api/events/joined/${session?.user?.email}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  }
   );
 
 

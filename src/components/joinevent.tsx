@@ -25,12 +25,18 @@ const JoinEvent =  ({ event, }: { event: EventData, }) => {
 
   useEffect(() => {
     const statusCheck = async () => {
+
+
+      const { data, error } = await authClient.token();
+      const token = data?.token;
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/events/status-check`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json", authorization: `Bearer ${ token }`
+
           },
           body: JSON.stringify({
             userEmail: session?.user?.email,
@@ -58,7 +64,7 @@ const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
 
     const {_id, ...eventInfo} = event
   
-    const token = getToken();
+    const token = await getToken();
 
     const data = {
       ...eventInfo,

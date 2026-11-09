@@ -11,26 +11,35 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { authClient } from "@/lib/auth-client"
 import { Trash2 } from "lucide-react"
 import { redirect } from "next/navigation"
 import { toast } from "react-toastify"
 
-export function DeleteEvent({id}:{id ?: string}) {
+export function DeleteEvent({ id }: { id?: string }) {
 
 
   const handleDeleteEvent = async () => {
+
+    const { data, error } = await authClient.token();
+    const token = data?.token;
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/events/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+
     })
     const response = await res.json();
     if (response?.acknowledged) {
-      
-          toast.success("Successfully deleted the event");
-        } else {
-          toast.error("Event delete failed!!");
+
+      toast.success("Successfully deleted the event");
+    } else {
+      toast.error("Event delete failed!!");
     }
 
-    
+
     console.log(response);
   }
 

@@ -13,9 +13,17 @@ const ManageEventsPage = async () => {
   const session = await auth.api.getSession({
     headers: await headers()
   })
+  const getToken = await auth.api.getToken({
+    headers: await headers()
+  })
+  const token = getToken.token
 
 
-  const res = await fetch(`${process.env.BASE_API_URL as string}/api/events/manage/${session?.user?.email}`)
+  const res = await fetch(`${process.env.BASE_API_URL as string}/api/events/manage/${session?.user?.email}`, {
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+  })
   
   const eventsResponse = await res.json()
   
