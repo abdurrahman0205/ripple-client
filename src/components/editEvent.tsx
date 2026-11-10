@@ -32,8 +32,8 @@ export function EditEvent({ event }: { event: EventData }) {
   const handleUpdateEvent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const { data, error } = await authClient.token();
-        const token = data?.token;
+    // const { data, error } = await authClient.token();
+    //     const token = data?.token;
 
     const formData = new FormData(e.currentTarget)
     const updatedData = Object.fromEntries(formData.entries());
@@ -42,7 +42,7 @@ export function EditEvent({ event }: { event: EventData }) {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`
+          // authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedData)
     })

@@ -17,25 +17,34 @@ const getToken = async () => {
 
 
 
-const JoinEvent =  ({ event, }: { event: EventData, }) => {
+const JoinEvent = ({ event, }: { event: EventData, }) => {
   const [joined, setJoined] = useState<boolean>(false);
   const { data: session } = useSession();
 
 
 
+
+
   useEffect(() => {
     const statusCheck = async () => {
-
-
-      const { data, error } = await authClient.token();
-      const token = data?.token;
+      let token;
+      try {
+        const { data, error } = await authClient.token();
+        token = data?.token;
+        if (!token) {
+          return;
+        }
+      } catch (error) {
+        console.error("Status check failed:", error);
+      }
 
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/events/status-check`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", authorization: `Bearer ${ token }`
+            "Content-Type": "application/json",
+            authorization: `Bearer ${token}`
 
           },
           body: JSON.stringify({
@@ -56,14 +65,29 @@ const JoinEvent =  ({ event, }: { event: EventData, }) => {
   }, [session?.user?.email, event._id]);
 
 
+  if (!session?.user) {
+    return (
+      <div className="flex flex-col items-center">
+        <Button
+          className='h-12 rounded-full bg-ar-primary px-6 text-base font-bold text-ar-primary-foreground shadow-md shadow-ar-primary/25 hover:bg-ar-primary-hover'
+          disabled>
+          Join Event
+        </Button>
+        <p className="text-[12px] text-red-400 italic">
+          Please sign in to join the event
+        </p>
+      </div>
+    );
+  }
+
   const userEmaiL = session?.user?.email;
 
-const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
+  const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
 
   const handleJoinEvent = async () => {
 
-    const {_id, ...eventInfo} = event
-  
+    const { _id, ...eventInfo } = event
+
     const token = await getToken();
 
     const data = {
@@ -88,7 +112,7 @@ const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
 
     const result = await res.json();
 
-    
+
 
     if (result.acknowledged) {
       setJoined(true)
@@ -96,8 +120,8 @@ const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
     } else toast.error(result?.message || "Could not join the event");
   };
 
-  
-  
+
+
 
   // 1. Organizer -> disabled "Joined"
   if (isOrganizer) {
@@ -119,7 +143,7 @@ const isOrganizer = !!userEmaiL && userEmaiL === event.organizer;
       <>
         <LeaveEvent event={event} setJoined={setJoined} />
       </>
-   
+
     );
   }
 

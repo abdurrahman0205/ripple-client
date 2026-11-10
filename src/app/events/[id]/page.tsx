@@ -24,22 +24,27 @@ const EventDetailsPage = async ({ params }: EventDetailsPageProps) => {
   const { id } = await params;
   
 
+  let userData = []
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  let token;
+  if (session?.user) {
+    const data = await auth.api.getToken({
+      headers: await headers(),
+    });
+   token = data.token;
+  }
 
-  const data = await auth.api.getToken({
-    headers: await headers(),
-  });
-
-  const token = data.token;
 
   const getUser = await fetch(`${process.env.BASE_API_URL}/api/users`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
   });
-  const users = await getUser.json();
+  userData = await getUser.json();
+  const users = Array.isArray(userData)? userData : []
 
   const getEvent = await fetch(`${process.env.BASE_API_URL}/api/events/${id}`);
   const event = await getEvent.json();
